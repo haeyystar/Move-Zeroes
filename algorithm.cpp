@@ -4,17 +4,38 @@
 // *** Note that you must do this in-place without making a copy of the array.
 
 #include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 void moveZeroes(vector<int>& nums);
 
 int main() {
 
-    // Function call should appear here
-    // Create an object in main or the function itself at your discretion
-
+    vector<int> nums = { 0, 0, 1, 2, 3 };
+    moveZeroes(nums);
 
     return 0;
 }
 
-void moveZeroes(vector<int>& nums) {}
+// This is one potential solution that involves using a two-pointer approach
+void moveZeroes(vector<int>& nums) {
+    // Edge Cases
+    int len = nums.size();
+    if (len == 0 || len == 1) { return; }
+
+    // Initialize two pointers:
+    int left = 0; // Position where the next non-zero value will be placed
+    int right = 0; // Position of the next non-zero value
+
+    while (right < len) {
+        if (nums[right] != 0) {
+            if (right != left) {
+                nums[left] = nums[right];
+                nums[right] = 0;
+            }
+            left++;
+        }
+        ++right;
+    }
+}
